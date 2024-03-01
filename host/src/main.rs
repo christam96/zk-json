@@ -22,7 +22,7 @@ fn main() {
     // creates an ExecutorEnvBuilder. When you're done adding input, call
     // ExecutorEnvBuilder::build().
 
-    let data = include_str!("../res/example.json");
+    let data = include_str!("../../res/sample.json");
     let outputs = search_json(data);
     println!();
     println!("  {:?}", outputs.hash);
