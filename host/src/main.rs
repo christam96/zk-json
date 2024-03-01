@@ -60,3 +60,16 @@ mod tests {
         );
     }
 }
+
+    /*
+    Todo:
+    [x] Add test case: critical_value = threshold_value
+    [x] Add test case: critical_value = null? 
+    [ ] Refactor to support multiple functions:
+        ? Create new structs for each type of function?
+        - contains() - Proves JSON file contains `critical_data`
+        - threshold() - Proves JSON file contains `critical_data` above `threshold_value`
+    [ ] Add in additional functions:
+        - matches() - Proves two JSON files contain matching `critical_data`
+        - larger() - Proves JSON file contains `critical_value` larger than the other JSON file
+    */
