@@ -22,7 +22,7 @@ fn main() {
     // creates an ExecutorEnvBuilder. When you're done adding input, call
     // ExecutorEnvBuilder::build().
 
-    let data = include_str!("../../res/sample.json");
+    let data = include_str!("../../data/sample.json");
     let outputs = search_json(data);
     println!();
     println!("  {:?}", outputs.hash);
@@ -52,19 +52,55 @@ fn search_json(data: &str) -> Outputs {
 mod tests {
     #[test]
     fn test_critical_data() {
-        let data = include_str!("../../res/sample.json");
+        let data = include_str!("../../data/sample.json");
         let outputs = super::search_json(data);
         assert_eq!(
             outputs.result, true,
             "Critical data field meets the expected threshold value"
         );
     }
+    #[test]
+    fn test_critical_data_value_less_than() {
+        let data = r#"{"critical_data": 42}"#; // Modify critical_data to test a different value
+        let outputs = super::search_json(data);
+        assert_eq!(
+            outputs.result, false,
+            "Critical data field does not match the expected threshold value"
+        );
+    }
+    #[test]
+    fn test_critical_data_value_equal_to() {
+        let data = r#"{"critical_data": 50}"#; // Modify critical_data to test a different value
+        let outputs = super::search_json(data);
+        assert_eq!(
+            outputs.result, false,
+            "Critical data field does not match the expected threshold value"
+        );
+    }
+    #[test]
+    fn test_equals_critical_data_value_is_null() {
+        let data = r#"{"critical_data": null}"#; // Modify critical_data to a different value
+        let outputs = super::search_json(data);
+        assert_eq!(
+            outputs.result, false,
+            "Critical data field is null"
+        );
+    }
+    #[test]
+    fn test_equals_critical_data_value_is_absent() {
+        let data = r#"{}"#; // Modify critical_data to a different value
+        let outputs = super::search_json(data);
+        assert_eq!(
+            outputs.result, false,
+            "Critical data field is absent"
+        );
+    }
 }
 
     /*
     Todo:
-    [x] Add test case: critical_value = threshold_value
-    [x] Add test case: critical_value = null? 
+    [ ] Add test case: critical_value = threshold_value
+    [ ] Add test case: critical_value = null? 
     [ ] Refactor to support multiple functions:
         ? Create new structs for each type of function?
         - contains() - Proves JSON file contains `critical_data`
