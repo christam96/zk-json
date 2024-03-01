@@ -6,5 +6,6 @@ edition = "2021"
 [workspace]
 
 [dependencies]
+json = "0.12"
 json-core = { path = "../../json-core" }
 risc0-zkvm = "0.20.0"
