@@ -99,8 +99,8 @@ mod tests {
 
     /*
     Todo:
-    [ ] Add test case: critical_value = threshold_value
-    [ ] Add test case: critical_value = null? 
+    [x] Add test case: critical_value = threshold_value
+    [x] Add test case: critical_value = null? 
     [ ] Refactor to support multiple functions:
         ? Create new structs for each type of function?
         - contains() - Proves JSON file contains `critical_data`
