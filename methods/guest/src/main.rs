@@ -3,6 +3,10 @@
 #![no_std]  // std support is experimental
 
 use json_core::Outputs;
+use risc0_zkvm::{
+    guest::env,
+    sha::{Impl, Sha256},
+};
 
 risc0_zkvm::guest::entry!(main);
 

@@ -6,4 +6,4 @@ edition = "2021"
 [workspace]
 
 [dependencies]
-json-core = { path = "../../json-core" }
+json-core = { path = "../../core" }
