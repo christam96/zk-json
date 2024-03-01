@@ -47,3 +47,16 @@ fn search_json(data: &str) -> Outputs {
 
     receipt.journal.decode().unwrap()
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_critical_data() {
+        let data = include_str!("../../res/sample.json");
+        let outputs = super::search_json(data);
+        assert_eq!(
+            outputs.result, true,
+            "Critical data field meets the expected threshold value"
+        );
+    }
+}
