@@ -1,12 +1,13 @@
-# Use Ubuntu as the base image
-FROM ubuntu:latest
+# Use Alpine as the base image
+FROM alpine:latest
 
 # Update package index and install necessary dependencies
-RUN apt-get update && \
-    apt-get install -y \
+RUN apk update && \
+    apk add --no-cache \
     curl \
     git \
-    && rm -rf /var/lib/apt/lists/*
+    build-base \
+    && rm -rf /var/cache/apk/*
 
 # Install Rust using rustup
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -14,13 +15,23 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 # Add Cargo's binary directory to the PATH
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-# Verify installation
-RUN cargo --version
+# Install cargo-binstall
+RUN cargo install cargo-binstall
 
-RUN cd /root \
-&& git clone https://github.com/christam96/zk-json.git \
-&& cd zk-json \
-&& cargo run
+# Install cargo-risczero
+RUN cargo binstall cargo-risczero -y
+
+# Install risczero
+RUN cargo risczero install
+
+# Clone the Git repository and run the application
+RUN cd /root && \
+    git clone https://github.com/christam96/zk-json.git && \
+    cd zk-json && \
+    cargo run
+
+# Set the working directory for the container
+WORKDIR /usr/src/app
 
 # Define the default command to run when the container starts
 CMD ["bash"]
