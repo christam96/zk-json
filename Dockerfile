@@ -1,13 +1,17 @@
 # Use Alpine as the base image
-FROM alpine:latest
+# FROM alpine:latest
+FROM rust:latest
+
+# Install build essentials and OpenSSL development headers
+RUN apt-get update && apt-get install -y build-essential libssl-dev git cmake
 
 # Update package index and install necessary dependencies
-RUN apk update && \
-    apk add --no-cache \
-    curl \
-    git \
-    build-base \
-    && rm -rf /var/cache/apk/*
+#RUN apk update && \
+#    apk add --no-cache \
+#    curl \
+#    git \
+#    build-base \
+#    && rm -rf /var/cache/apk/*
 
 # Install Rust using rustup
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -22,7 +26,8 @@ RUN cargo install cargo-binstall
 RUN cargo binstall cargo-risczero -y
 
 # Install risczero
-RUN cargo risczero install
+# RUN cargo risczero install
+RUN cargo risczero build-toolchain
 
 # Clone the Git repository and run the application
 RUN cd /root && \
