@@ -3,7 +3,7 @@
 FROM rust:latest
 
 # Install build essentials and OpenSSL development headers
-RUN apt-get update && apt-get install -y build-essential libssl-dev git cmake
+RUN apt-get update && apt-get install -y build-essential libssl-dev git cmake ninja-build
 
 # Update package index and install necessary dependencies
 #RUN apk update && \
