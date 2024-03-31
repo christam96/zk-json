@@ -26,8 +26,8 @@ RUN cargo install cargo-binstall
 RUN cargo binstall cargo-risczero -y
 
 # Install risczero
-RUN cargo risczero install
-# RUN cargo risczero build-toolchain
+# RUN cargo risczero install
+RUN cargo risczero build-toolchain
 
 # Clone the Git repository and run the application
 RUN cd /root && \
