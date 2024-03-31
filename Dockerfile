@@ -26,14 +26,13 @@ RUN cargo install cargo-binstall
 RUN cargo binstall cargo-risczero -y
 
 # Install risczero
-# RUN cargo risczero install
-RUN cargo risczero build-toolchain
+RUN cargo risczero install
+# RUN cargo risczero build-toolchain
 
 # Clone the Git repository and run the application
 RUN cd /root && \
     git clone https://github.com/christam96/zk-json.git && \
-    cd zk-json && \
-    cargo run
+    cd zk-json
 
 # Set the working directory for the container
 WORKDIR /usr/src/app
